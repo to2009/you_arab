@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>اتصل بنا</title>
+  <style>
+    body {
+      background-color: #ede7f6;
+      color: #4b0044;
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #8e244d;
+    }
+    form {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 20px auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button, .dropdown-btn {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      background-color: #8e244d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover, .dropdown-btn:hover {
+      background-color: #a33a63;
+    }
+    .dropdown-content {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      margin-top: 10px;
+    }
+    .dropdown.active .dropdown-content {
+      display: flex;
+    }
+    .dropdown {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      z-index: 999;
+    }
+    .dropdown-btn {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      background-color: #8e244d;
+      border-radius: 0 10px 10px 0;
+      width: auto;
+      padding: 12px 6px;
+    }
+    .rating {
+      text-align: center;
+      margin: 20px auto;
+    }
+    .stars {
+      direction: ltr;
+    }
+    .stars span {
+      font-size: 30px;
+      cursor: pointer;
+      color: #ccc;
+    }
+    .stars span.selected {
+      color: #ffcc00;
+    }
+    #comments-container {
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 15px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #4b0044;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>المرأة والتكنولوجيا - نحو مستقبل رقمي شامل</h2>
+  <p style="text-align: center; max-width: 600px; margin: auto;">
+    تُمثّل المرأة قوة دافعة في مسيرة التحول الرقمي. من الابتكار إلى الريادة، تواصل النساء العربيات تحدي العقبات وتحقيق إنجازات ملهمة. ومع تصاعد التحديات في مناطق مثل غزة، تظل المرأة رمزًا للصمود والإبداع حتى وسط الحروب والمعاناة. دعم المرأة في التكنولوجيا هو دعم لمجتمع متطور ومتوازن.
+  </p>
+
+  <div class="dropdown">
+    <button class="dropdown-btn" onclick="toggleDropdown()">أدوات<br>الوصول</button>
+    <div class="dropdown-content">
+      <button onclick="zoomIn()">تكبير النص</button>
+      <button onclick="zoomOut()">تصغير النص</button>
+      <button onclick="resetZoom()">إعادة الضبط</button>
+      <button onclick="toggleMode()">تغيير النمط</button>
+    </div>
+  </div>
+
+  <h1>اتصل بنا</h1>
+  <form id="contact-form">
+    <label for="message">اكتب تعليقك:</label>
+    <textarea id="message" name="message" required></textarea>
+    <button type="submit">إرسال</button>
+  </form>
+
+  <div id="comments-container">
+    <h3>التعليقات المنشورة:</h3>
+    <div id="comments"></div>
+  </div>
+
+  <div class="rating">
+    <h3>قيّم الموقع:</h3>
+    <div class="stars" onclick="rate(event)">
+      <span data-value="1">★</span>
+      <span data-value="2">★</span>
+      <span data-value="3">★</span>
+      <span data-value="4">★</span>
+      <span data-value="5">★</span>
+    </div>
+    <p id="rating-result"></p>
+  </div>
+
+  <p style="text-align: center;">عدد الزوار: <span id="visitor-count">0</span></p>
+
+  <p style="text-align: center;">للتواصل مع صفحة أنتِ 🦋 𝔂𝓸𝓾 <a href="https://www.instagram.com/ante_arab?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">اضغطي هنا</a></p>
+
+    <button onclick="document.location='الصفحة_الاولى.html'">⏪  العودة الى الصفحة الرئيسية</button>
+
+  <footer>
+    &copy; جميع الحقوق محفوظة - مبادرة أنتِ في التكنولوجيا 2025
+  </footer>
+
+  <script>
+    // عداد الزوار
+    let visits = localStorage.getItem("visitCount") || 0;
+    visits++;
+    localStorage.setItem("visitCount", visits);
+    document.getElementById("visitor-count").innerText = visits;
+
+    // أدوات النص
+    let baseSize = 16;
+    function zoomIn() {
+      baseSize += 2;
+      document.body.style.fontSize = baseSize + "px";
+    }
+    function zoomOut() {
+      if (baseSize > 8) {
+        baseSize -= 2;
+        document.body.style.fontSize = baseSize + "px";
+      }
+    }
+    function resetZoom() {
+      baseSize = 16;
+      document.body.style.fontSize = baseSize + "px";
+    }
+
+    // تغيير النمط
+    function toggleMode() {
+      const body = document.body;
+      const isLight = body.classList.contains("light-mode");
+      if (isLight) {
+        body.style.backgroundColor = "#2d001c";
+        body.style.color = "#ffe6f0";
+        body.classList.remove("light-mode");
+      } else {
+        body.style.backgroundColor = "#ede7f6";
+        body.style.color = "#4b0044";
+        body.classList.add("light-mode");
+      }
+    }
+    document.body.classList.add("light-mode");
+
+    // قائمة منسدلة
+    function toggleDropdown() {
+      document.querySelector('.dropdown').classList.toggle('active');
+    }
+
+    // النجوم
+    function rate(event) {
+      if (event.target.dataset.value) {
+        const value = event.target.dataset.value;
+        document.getElementById("rating-result").innerText = `شكراً! تم تقييمك بـ ${value} نجوم.`;
+        document.querySelectorAll(".stars span").forEach(star => {
+          star.classList.remove("selected");
+          if (star.dataset.value <= value) {
+            star.classList.add("selected");
+          }
+        });
+      }
+    }
+
+    // التعليقات
+    document.getElementById("contact-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const message = document.getElementById("message").value;
+      const container = document.getElementById("comments");
+      const comment = document.createElement("p");
+      comment.textContent = message;
+      comment.style.backgroundColor = "#f0e6f6";
+      comment.style.padding = "10px";
+      comment.style.borderRadius = "5px";
+      comment.style.marginTop = "10px";
+      container.prepend(comment);
+      document.getElementById("message").value = "";
+    });
+  </script>
+
+</body>
+</html>
